@@ -230,7 +230,8 @@ export default class App extends Component {
             disabled={
               !(
                 this.state.truckingDetails.companyName.valid &&
-                !this.state.truckingDetails.companyNumber.touched
+                ( this.state.truckingDetails.companyNumber.valid ||
+                  !this.state.truckingDetails.companyNumber.touched)
               )
             }
             onPress={this.onSubmitHandler}

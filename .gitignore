@@ -29,7 +29,7 @@ build/
 .gradle
 local.properties
 *.iml
-key/
+
 # node.js
 #
 node_modules/
