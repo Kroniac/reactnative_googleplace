@@ -120,7 +120,10 @@ class Screen2 extends Component {
       />
     ) : null;
     return (
-      <ScrollView style={{ flex: 1, backgroundColor: '#B3E5FC', padding: 5 }}>
+      <ScrollView
+        keyboardShouldPersistTaps="always"
+        style={{ flex: 1, backgroundColor: '#B3E5FC', padding: 5 }}
+      >
         <View style={styles.container}>
           <View style={styles.input}>
             <Text style={{ fontSize: 16, fontWeight: 'bold' }}>

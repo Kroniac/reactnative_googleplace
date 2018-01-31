@@ -118,7 +118,10 @@ export default class App extends Component {
       return <Picker.Item key={index} label={good} value={good} />;
     });
     return (
-      <ScrollView style={{ flex: 1, backgroundColor: '#B3E5FC', padding: 5 }}>
+      <ScrollView
+        keyboardShouldPersistTaps="always"
+        style={{ flex: 1, backgroundColor: '#B3E5FC', padding: 5 }}
+      >
         <View style={styles.container}>
           {/* <Text style={{ fontSize: 24, fontWeight: 'bold' }}>
             Complete Form To Store Data
@@ -255,7 +258,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent : 'center',
+    justifyContent: 'center',
     marginBottom: 10,
     marginTop: 15
   },

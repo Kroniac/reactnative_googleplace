@@ -42,7 +42,7 @@ export const Tabs = TabNavigator(
         padding: 2,
         backgroundColor: '#B3E5FC', 
       },
-      swipeEnabled: false
+      swipeEnabled: true
     }
   }
 );
