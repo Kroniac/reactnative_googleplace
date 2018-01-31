@@ -4,14 +4,14 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, Image, View } from 'react-native';
 const listItem = props => {
   let contactNumber = props.contactNumber ? (
-    <View>
+    <View style={styles.listItem}>
       <Text>Contact Number</Text>
       <Text>{props.contactNumber}</Text>
     </View>
   ) : null;
   let priceRange =
     props.priceLower && props.priceUpper ? (
-      <View>
+      <View style={styles.listItem}>
         <Text>Price Range</Text>
         <Text>
           ₹{props.priceLower} - ₹{props.priceUpper}
@@ -19,36 +19,43 @@ const listItem = props => {
       </View>
     ) : null;
   return (
-    <View style={styles.listItem}>
-      <View style={styles.companylist}>
-        <View>
+    <View style={styles.listItems}>
+      <View style={styles.mainList}>
+        <View style={[styles.listItem, { justifyContent: 'center' }]}>
+          <Text>
+            {props.placel} - {props.placeu}
+          </Text>
+        </View>
+        <View style={styles.listItem}>
           <Text>Company Name</Text>
           <Text>{props.companyName}</Text>
         </View>
         {contactNumber}
         {priceRange}
       </View>
-      <View>
-        <Text>
-          {props.placel} - {props.placeu}
-        </Text>
-      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  listItem: {
+  listItems: {
     width: '100%',
     padding: 10,
-    backgroundColor: '#eee',
+    backgroundColor: '#E1F5FE',
     marginBottom: 5,
-    alignItems: 'center'
+    alignItems: 'center',
+    borderRadius: 10
   },
-  companylist: {
+  mainList: {
     width: '95%',
-    flexDirection: 'row',
     justifyContent: 'space-around'
+  },
+  listItem: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 5
   },
   price: {
     width: '95%',

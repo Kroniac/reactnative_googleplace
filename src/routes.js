@@ -1,24 +1,28 @@
 import React from 'react';
 import { Text, Button } from 'react-native';
 import { TabNavigator, TabBarBottom, StackNavigator } from 'react-navigation';
-import Screen1 from './container/screen1';
-import Screen2 from './container/screen2';
+import EnterData from './container/EnterData';
+import FetchData from './container/FetchData';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export const Tabs = TabNavigator(
   {
     EnterData: {
-      screen: Screen1,
+      screen: EnterData,
       navigationOptions: {
         tabBarlabel: 'Insert Details',
-        tabBarIcon: () => <Icon name="md-map" size={25} />
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="md-map" size={25} color={tintColor} />
+        )
       }
     },
     FindTrucks: {
-      screen: Screen2,
+      screen: FetchData,
       navigationOptions: {
         tabBarlabel: 'Get Details',
-        tabBarIcon: () => <Icon name="md-code-download" size={25} />
+        tabBarIcon: ({ tintColor }) => (
+          <Icon name="md-code-download" size={25} color={tintColor} />
+        )
       }
     }
   },
@@ -26,13 +30,19 @@ export const Tabs = TabNavigator(
     tabBarComponent: TabBarBottom,
     tabBarPosition: 'bottom',
     animationEnabled: true,
+
     tabBarOptions: {
-      activeTintColor: '#e91e63',
+      activeTintColor: '#F44336',
+      activeBackgroundColor: '#4FC3F7',
       labelStyle: {
-        fontSize: 12
+        fontSize: 12,
+        fontWeight: 'bold'
+      },
+      style: {
+        padding: 2,
+        backgroundColor: '#B3E5FC', 
       },
       swipeEnabled: false
     }
   }
 );
-

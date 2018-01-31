@@ -9,12 +9,13 @@ import {
   TextInput,
   Button,
   Picker,
-  FlatList
+  FlatList,
+  ScrollView
 } from 'react-native';
-import ListItem from '../Component/ListItem/ListItem';
+import ListItem from '../component/ListItem/ListItem';
 import axios from 'axios';
 import { updateObject, checkValidity, onChange } from '../utility/utility';
-import GoogleAutoComplete from '../Component/GoogleAutoComplete/GoogleAutoComplete.js';
+import GoogleAutoComplete from '../component/GoogleAutoComplete/GoogleAutoComplete.js';
 
 class Screen2 extends Component {
   state = {
@@ -119,81 +120,87 @@ class Screen2 extends Component {
       />
     ) : null;
     return (
-      <View style={styles.container}>
-        <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
-          Pickup and Drop Points
-        </Text>
-        <View style={styles.input}>
-          <View style={styles.inputinner}>
-            <GoogleAutoComplete
-              placeholder="Loading Point"
-              changed={(data, details) =>
-                this.onChangeHandler(
-                  details.address_components[
-                    details.address_components.length - 2
-                  ].long_name,
-                  'loadingp'
-                )
-              }
+      <ScrollView style={{ flex: 1, backgroundColor: '#B3E5FC', padding: 5 }}>
+        <View style={styles.container}>
+          <View style={styles.input}>
+            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
+              Pickup and Drop Points
+            </Text>
+            <View style={styles.inputinner}>
+              <GoogleAutoComplete
+                placeholder="Loading Point"
+                changed={(data, details) =>
+                  this.onChangeHandler(
+                    details.address_components[
+                      details.address_components.length - 2
+                    ].long_name,
+                    'loadingp'
+                  )
+                }
+              />
+            </View>
+          </View>
+          <View style={styles.input}>
+            <View style={styles.inputinner}>
+              <GoogleAutoComplete
+                placeholder="UnLoading Point"
+                changed={(data, details) =>
+                  this.onChangeHandler(
+                    details.address_components[
+                      details.address_components.length - 2
+                    ].long_name,
+                    'unloadingp'
+                  )
+                }
+              />
+            </View>
+          </View>
+
+          <View style={styles.input}>
+            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
+              Type Of Goods
+            </Text>
+            <View style={styles.inputinner}>
+              <Picker
+                style={{
+                  width: '100%'
+                }}
+                selectedValue={this.state.truckingDetails.goodType.value}
+                onValueChange={val => this.onChangeHandler(val, 'goodType')}
+              >
+                {goodList}
+              </Picker>
+            </View>
+          </View>
+
+          <View style={styles.input}>
+            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
+              Number Of Specified Location for Search
+            </Text>
+            <View style={styles.inputinner}>
+              <Picker
+                style={{
+                  width: '100%'
+                }}
+                selectedValue={this.state.truckingDetails.check.value}
+                onValueChange={val => this.onChangeHandler(val, 'check')}
+              >
+                <Picker.Item label="one" value="one" />
+                <Picker.Item label="two" value="two" />
+              </Picker>
+            </View>
+          </View>
+          <View style={{ marginBottom: 20, marginTop: 10 }}>
+            <Button
+              style={{ marginTop: 10 }}
+              title="Show Data"
+              disabled={this.state.truckingDetails.loadingp.value === ''}
+              onPress={this.onShowHandler}
             />
           </View>
+          {fetchData}
         </View>
-        <View style={styles.input}>
-          <View style={styles.inputinner}>
-            <GoogleAutoComplete
-              placeholder="UnLoading Point"
-              changed={(data, details) =>
-                this.onChangeHandler(
-                  details.address_components[
-                    details.address_components.length - 2
-                  ].long_name,
-                  'unloadingp'
-                )
-              }
-            />
-          </View>
-        </View>
-        <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Type Of Goods</Text>
-        <View style={styles.input}>
-          <View style={styles.inputinner}>
-            <Picker
-              style={{
-                width: '100%'
-              }}
-              selectedValue={this.state.truckingDetails.goodType.value}
-              onValueChange={val => this.onChangeHandler(val, 'goodType')}
-            >
-              {goodList}
-            </Picker>
-          </View>
-        </View>
-        <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
-          Number Of Specified Location for Search
-        </Text>
-        <View style={styles.input}>
-          <View style={styles.inputinner}>
-            <Picker
-              style={{
-                width: '100%'
-              }}
-              selectedValue={this.state.truckingDetails.check.value}
-              onValueChange={val => this.onChangeHandler(val, 'check')}
-            >
-              <Picker.Item label="one" value="one" />
-              <Picker.Item label="two" value="two" />
-            </Picker>
-          </View>
-        </View>
-        <View style={{ marginBottom: 20 }}>
-          <Button
-            style={{ marginTop: 10 }}
-            title="Show Data"
-            disabled={this.state.truckingDetails.loadingp.value === ''}
-            onPress={this.onShowHandler}
-          />
-        </View>
-        {fetchData}
-      </View>
+      </ScrollView>
     );
   }
 }
@@ -204,18 +211,20 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
-    marginTop: 30
+    justifyContent: 'center',
+    marginBottom: 10,
+    marginTop: 15
   },
 
   input: {
-    width: '95%',
+    width: '98%',
     alignItems: 'center',
     justifyContent: 'space-around',
+    backgroundColor: '#E1F5FE',
+    marginTop: 5,
+    marginBottom: 5,
     padding: 10,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    elevation: 1
+    borderRadius: 7
   },
   inputinner: {
     alignItems: 'center',
