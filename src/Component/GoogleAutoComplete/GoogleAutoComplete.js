@@ -1,6 +1,6 @@
 import React from 'react';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
-import * as key from '../config/Keys/Keys';
+import * as key from '../../config/Keys/Keys';
 const GoogleAutoComplete = props => (
   <GooglePlacesAutocomplete
     placeholder={props.placeholders}

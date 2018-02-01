@@ -34,6 +34,30 @@ export const onChange = (val, key, state) => {
   };
 };
 
+export const onArrayTypeChange = (val, key, arrayIndex, state) => {
+  let touched = true;
+
+  if (val === '') {
+    touched = false;
+  }
+  let newValue = state.truckingDetails[key].value.map((value, index) => {
+    if (index === arrayIndex) return val;
+    else return value;
+  });
+  return prevState => {
+    return {
+      ...prevState,
+      truckingDetails: {
+        ...prevState.truckingDetails,
+        [key]: {
+          ...prevState.truckingDetails[key],
+          value: [...newValue]
+        }
+      }
+    };
+  };
+};
+
 //check the validity of the inputs
 export const checkValidity = (value, rules) => {
   let isValid = true;
