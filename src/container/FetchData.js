@@ -44,7 +44,15 @@ class FetchData extends Component {
     },
     fetchedData: '',
     isValid: false,
-    goodList: ['steel', 'cars', 'boxes', 'glass material', 'coal']
+    goodList: [
+      'steel',
+      'paper',
+      'plastic',
+      'cars',
+      'boxes',
+      'glass material',
+      'coal'
+    ]
   };
 
   //on change of text in an input box
@@ -125,6 +133,7 @@ class FetchData extends Component {
         style={{ flex: 1, backgroundColor: '#B3E5FC', padding: 5 }}
       >
         <View style={styles.container}>
+         
           <View style={styles.input}>
             <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
               Pickup and Drop Points

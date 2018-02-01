@@ -94,7 +94,15 @@ export default class EnterData extends Component {
       }
     },
     isValid: false,
-    goodList: ['steel', 'cars', 'boxes', 'glass material', 'coal'],
+    goodList: [
+      'steel',
+      'paper',
+      'plastic',
+      'cars',
+      'boxes',
+      'glass material',
+      'coal'
+    ],
     truckFields: 0
   };
 
@@ -228,7 +236,30 @@ export default class EnterData extends Component {
           {/* <Text style={{ fontSize: 24, fontWeight: 'bold' }}>
             Complete Form To Store Data
           </Text> */}
-
+          <View style={styles.input}>
+            <View
+              style={[styles.inputinner, { justifyContent: 'space-between' }]}
+            >
+              <Text
+                style={{ fontSize: 16, fontWeight: 'bold', color: '#FFCDD2' }}
+              >
+                _______
+              </Text>
+              <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#ccc' }}>
+                _______
+              </Text>
+            </View>
+            <View
+              style={[styles.inputinner, { justifyContent: 'space-between' }]}
+            >
+              <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
+                Mandatory Fields
+              </Text>
+              <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
+                Optional Fields
+              </Text>
+            </View>
+          </View>
           <View style={styles.input}>
             <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
               Pickup and Drop Points
@@ -258,7 +289,7 @@ export default class EnterData extends Component {
             </Text>
             <View style={styles.inputinner}>
               <TextInput
-                underlineColorAndroid="#ccc"
+                underlineColorAndroid="#FFCDD2"
                 style={
                   this.state.truckingDetails.companyName.valid ||
                   !this.state.truckingDetails.companyName.touched

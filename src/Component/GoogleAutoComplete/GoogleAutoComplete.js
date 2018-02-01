@@ -5,6 +5,7 @@ const GoogleAutoComplete = props => (
   <GooglePlacesAutocomplete
     placeholder={props.placeholders}
     minLength={2}
+    underlineColorAndroid="#FFCDD2"
     autoFocus={false}
     returnKeyType={'default'}
     fetchDetails={true}
