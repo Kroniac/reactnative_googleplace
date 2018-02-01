@@ -196,7 +196,7 @@ export default class EnterData extends Component {
         truckDetailsFields.push(
           <View key={i} style={styles.inputinner}>
             <TextInput
-              underlineColorAndroid="#ccc"
+              underlineColorAndroid="#FFCDD2"
               style={
                 this.state.truckingDetails.truckCapacity.valid ||
                 !this.state.truckingDetails.truckCapacity.touched
@@ -211,7 +211,7 @@ export default class EnterData extends Component {
               value={this.state.truckingDetails.truckCapacity.value[i]}
             />
             <TextInput
-              underlineColorAndroid="#ccc"
+              underlineColorAndroid="#FFCDD2"
               style={
                 this.state.truckingDetails.companyNumber.valid ||
                 !this.state.truckingDetails.companyNumber.touched
