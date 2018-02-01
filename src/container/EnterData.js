@@ -21,7 +21,7 @@ import {
 import axios from 'axios';
 import GoogleAutoComplete from '../component/GoogleAutoComplete/GoogleAutoComplete.js';
 
-export default class App extends Component {
+export default class EnterData extends Component {
   state = {
     truckingDetails: {
       loadingp: {
@@ -137,6 +137,23 @@ export default class App extends Component {
   };
 
   truckDetailsAddFieldsHandler = () => {
+    console.log(this.state.truckFields);
+    if (this.state.truckFields === 0) {
+      console.log('hello');
+      this.state.truckingDetails.truckCapacity.value.length = 0;
+      this.setState(prevState => {
+        return {
+          ...prevState,
+          truckingDetails: {
+            ...prevState.truckingDetails,
+            truckCapacity: {
+              ...prevState.truckingDetails.truckCapacity,
+              value: []
+            }
+          }
+        };
+      });
+    }
     if (this.state.truckFields > 0) {
       this.state.truckingDetails.truckCapacity.value.length = this.state.truckFields;
       this.setState(prevState => {
@@ -159,41 +176,49 @@ export default class App extends Component {
       return <Picker.Item key={index} label={good} value={good} />;
     });
     let truckDetailsFields = [];
-    for (let i = 0; i < this.state.truckFields; i++) {
-      truckDetailsFields.push(
-        <View key={i} style={styles.inputinner}>
-          <TextInput
-            underlineColorAndroid="#ccc"
-            style={
-              this.state.truckingDetails.truckCapacity.valid ||
-              !this.state.truckingDetails.truckCapacity.touched
-                ? styles.textinput
-                : styles.textinput2
-            }
-            keyboardType="default"
-            placeholder="Capacity(Ton)"
-            onChangeText={val =>
-              this.onArrayTypeChangeHandler(val, 'truckCapacity', i)
-            }
-            value={this.state.truckingDetails.truckCapacity.value[i]}
-          />
-          <TextInput
-            underlineColorAndroid="#ccc"
-            style={
-              this.state.truckingDetails.companyNumber.valid ||
-              !this.state.truckingDetails.companyNumber.touched
-                ? styles.textinput
-                : styles.textinput2
-            }
-            keyboardType="numeric"
-            placeholder="No. Of Trucks"
-            onChangeText={val => this.onChangeHandler(val, 'companyNumber')}
-            value={this.state.truckingDetails.companyNumber.value}
-          />
-        </View>
-      );
-    }
 
+    if (this.state.truckingDetails.truckCapacity.value.length === 0)
+      truckDetailsFields = [];
+    else {
+      for (
+        let i = 0;
+        i < this.state.truckingDetails.truckCapacity.value.length;
+        i++
+      ) {
+        truckDetailsFields.push(
+          <View key={i} style={styles.inputinner}>
+            <TextInput
+              underlineColorAndroid="#ccc"
+              style={
+                this.state.truckingDetails.truckCapacity.valid ||
+                !this.state.truckingDetails.truckCapacity.touched
+                  ? styles.textinput
+                  : styles.textinput2
+              }
+              keyboardType="default"
+              placeholder="Capacity(Ton)"
+              onChangeText={val =>
+                this.onArrayTypeChangeHandler(val, 'truckCapacity', i)
+              }
+              value={this.state.truckingDetails.truckCapacity.value[i]}
+            />
+            <TextInput
+              underlineColorAndroid="#ccc"
+              style={
+                this.state.truckingDetails.companyNumber.valid ||
+                !this.state.truckingDetails.companyNumber.touched
+                  ? styles.textinput
+                  : styles.textinput2
+              }
+              keyboardType="numeric"
+              placeholder="No. Of Trucks"
+              onChangeText={val => this.onChangeHandler(val, 'companyNumber')}
+              value={this.state.truckingDetails.companyNumber.value}
+            />
+          </View>
+        );
+      }
+    }
     return (
       <ScrollView
         keyboardShouldPersistTaps="always"
@@ -271,7 +296,9 @@ export default class App extends Component {
                 keyboardType="numeric"
                 style={[styles.textinput, { width: '50%' }]}
                 placeholder="Types Of Trucks"
-                onChangeText={val => this.setState({ truckFields: val })}
+                onChangeText={val =>
+                  this.setState({ truckFields: Number(val) })
+                }
               />
               <Button
                 title="Add Details"

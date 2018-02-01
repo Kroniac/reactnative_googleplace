@@ -17,7 +17,7 @@ import axios from 'axios';
 import { updateObject, checkValidity, onChange } from '../utility/utility';
 import GoogleAutoComplete from '../component/GoogleAutoComplete/GoogleAutoComplete.js';
 
-class Screen2 extends Component {
+class FetchData extends Component {
   state = {
     truckingDetails: {
       loadingp: {
@@ -208,7 +208,7 @@ class Screen2 extends Component {
   }
 }
 
-export default Screen2;
+export default FetchData;
 
 const styles = StyleSheet.create({
   container: {
