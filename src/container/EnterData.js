@@ -121,7 +121,8 @@ export default class EnterData extends Component {
 
 
   backButtonHandler = (event) => {
-    if(this.backButtonCounter < 1){
+    if (this.backButtonCounter < 1) {
+      ToastAndroid.show('Tap again to exit', ToastAndroid.SHORT)
 
     }
   }
