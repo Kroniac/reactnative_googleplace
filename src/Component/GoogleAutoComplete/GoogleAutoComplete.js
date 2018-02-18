@@ -24,14 +24,14 @@ const GoogleAutoComplete = props => (
       textInputContainer: {
         backgroundColor: 'rgba(0,0,0,0)',
         borderTopWidth: 0,
-        borderBottomWidth: 0
+        borderBottomWidth: 0,
       },
       textInput: {
         marginLeft: 0,
         marginRight: 0,
-        height: 38,
+        height: 35,
         color: '#5d5d5d',
-        fontSize: 16,
+        fontSize: 15,
         textAlign: 'center'
       }
     }}

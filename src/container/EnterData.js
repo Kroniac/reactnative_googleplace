@@ -14,6 +14,7 @@ import {
   KeyboardAvoidingView,
   ScrollView
 } from 'react-native';
+
 import {
   updateObject,
   checkValidity,
@@ -21,6 +22,7 @@ import {
   onArrayTypeChange
 } from '../utility/utility';
 import axios from 'axios';
+import TextInputUI from '../UI/TextInputUI/TextInputUI.js';
 import GoogleAutoComplete from '../component/GoogleAutoComplete/GoogleAutoComplete.js';
 
 export default class EnterData extends Component {
@@ -109,21 +111,15 @@ export default class EnterData extends Component {
     backButtonCounter: 0
   };
 
-
-
   componentWillMount() {
-
-    BackHandler.addEventListener('enter page', this.backButtonHandler)
+    BackHandler.addEventListener('enter page', this.backButtonHandler);
   }
-
 
   componentWillUnmount() {
-    BackHandler.removeEventListener('enter page', this.backButtonHandler)
+    BackHandler.removeEventListener('enter page', this.backButtonHandler);
   }
 
-
   backButtonHandler = () => {
-
     if (this.state.backButtonCounter < 1) {
       ToastAndroid.show('Tap again to exit', ToastAndroid.SHORT);
       this.state.backButtonCounter += 1;
@@ -136,8 +132,8 @@ export default class EnterData extends Component {
       ToastAndroid.show('App exited', ToastAndroid.SHORT);
       BackHandler.exitApp();
     }
-    return true
-  }
+    return true;
+  };
 
   baseState = this.state;
   onChangeHandler = (val, key) => {
@@ -152,7 +148,7 @@ export default class EnterData extends Component {
   onSubmitHandler = () => {
     if (
       Number(this.state.truckingDetails.priceLower.value) <=
-      Number(this.state.truckingDetails.priceUpper.value) ||
+        Number(this.state.truckingDetails.priceUpper.value) ||
       this.state.truckingDetails.priceLower === '' ||
       this.state.truckingDetails.priceUpper === ''
     ) {
@@ -237,10 +233,10 @@ export default class EnterData extends Component {
         truckDetailsFields.push(
           <View key={i} style={styles.inputinner}>
             <TextInput
-              underlineColorAndroid="#FFCDD2"
+              underlineColor="#FFCDD2"
               style={
                 this.state.truckingDetails.truckCapacity.valid ||
-                  !this.state.truckingDetails.truckCapacity.touched
+                !this.state.truckingDetails.truckCapacity.touched
                   ? styles.textinput
                   : styles.textinput2
               }
@@ -255,7 +251,7 @@ export default class EnterData extends Component {
               underlineColorAndroid="#FFCDD2"
               style={
                 this.state.truckingDetails.companyNumber.valid ||
-                  !this.state.truckingDetails.companyNumber.touched
+                !this.state.truckingDetails.companyNumber.touched
                   ? styles.textinput
                   : styles.textinput2
               }
@@ -272,7 +268,7 @@ export default class EnterData extends Component {
     }
     return (
       <ScrollView
-        keyboardShouldPersistTaps='handled'
+        keyboardShouldPersistTaps="handled"
         style={{ flex: 1, backgroundColor: '#00BFA5', padding: 5 }}
       >
         <View style={styles.container}>
@@ -304,7 +300,6 @@ export default class EnterData extends Component {
             </View>
           </View>
           <View style={styles.input}>
-
             <View style={styles.inputinner}>
               <GoogleAutoComplete
                 placeholders="Enter Loading Point"
@@ -326,31 +321,19 @@ export default class EnterData extends Component {
 
           <View style={styles.input}>
             <View style={styles.inputinner}>
-              <TextInput
-                underlineColorAndroid="#FFCDD2"
-                style={
-                  this.state.truckingDetails.companyName.valid ||
-                    !this.state.truckingDetails.companyName.touched
-                    ? styles.textinput
-                    : styles.textinput2
-                }
+              <TextInputUI
+                underlineColor="#FFCDD2"
+                field={this.state.truckingDetails.companyName}
                 keyboardType="default"
                 placeholder="Company Name"
                 onChangeText={val => this.onChangeHandler(val, 'companyName')}
-                value={this.state.truckingDetails.companyName.value}
               />
-              <TextInput
-                underlineColorAndroid="#ccc"
-                style={
-                  this.state.truckingDetails.companyNumber.valid ||
-                    !this.state.truckingDetails.companyNumber.touched
-                    ? styles.textinput
-                    : styles.textinput2
-                }
+              <TextInputUI
+                underlineColor="#ccc"
+                field={this.state.truckingDetails.companyNumber}
                 keyboardType="numeric"
                 placeholder="Mobile No."
                 onChangeText={val => this.onChangeHandler(val, 'companyNumber')}
-                value={this.state.truckingDetails.companyNumber.value}
               />
             </View>
           </View>
@@ -411,31 +394,19 @@ export default class EnterData extends Component {
               Price Range In INR(₹)
             </Text>
             <View style={styles.inputinner}>
-              <TextInput
-                underlineColorAndroid="#ccc"
-                style={
-                  this.state.truckingDetails.priceLower.valid ||
-                    !this.state.truckingDetails.priceLower.touched
-                    ? styles.textinput
-                    : styles.textinput2
-                }
+              <TextInputUI
+                underlineColor="#ccc"
+                field={this.state.truckingDetails.priceLower}
                 keyboardType="numeric"
                 placeholder="Lower Range"
                 onChangeText={val => this.onChangeHandler(val, 'priceLower')}
-                value={this.state.truckingDetails.priceLower.value}
               />
-              <TextInput
-                underlineColorAndroid="#ccc"
-                style={
-                  this.state.truckingDetails.priceUpper.valid ||
-                    !this.state.truckingDetails.priceUpper.touched
-                    ? styles.textinput
-                    : styles.textinput2
-                }
+              <TextInputUI
+                underlineColor="#ccc"
+                field={this.state.truckingDetails.priceUpper}
                 keyboardType="numeric"
                 placeholder="Upper Range"
                 onChangeText={val => this.onChangeHandler(val, 'priceUpper')}
-                value={this.state.truckingDetails.priceUpper.value}
               />
             </View>
           </View>
@@ -463,6 +434,7 @@ export default class EnterData extends Component {
               color="#009688"
               disabled={
                 !(
+                  this.state.truckingDetails.loadingp.valid &&
                   this.state.truckingDetails.companyName.valid &&
                   (this.state.truckingDetails.companyNumber.valid ||
                     !this.state.truckingDetails.companyNumber.touched)
@@ -496,6 +468,7 @@ const styles = StyleSheet.create({
     padding: 10,
     borderRadius: 7
   },
+
   inputinner: {
     alignItems: 'center',
     justifyContent: 'space-around',

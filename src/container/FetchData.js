@@ -67,8 +67,11 @@ class FetchData extends Component {
     for (let key in res.data) {
       place2l =
         res.data[key].loadingp[res.data[key].loadingp.length - 2].long_name;
-      place2u =
-        res.data[key].unloadingp[res.data[key].unloadingp.length - 2].long_name;
+      if (res.data[key].unloadingp !== '')
+        place2u =
+          res.data[key].unloadingp[res.data[key].unloadingp.length - 2]
+            .long_name;
+      else place2u = '';
       if (this.state.truckingDetails.check.value === 'two') {
         if (
           place2l === this.state.truckingDetails.loadingp.value &&
@@ -104,6 +107,45 @@ class FetchData extends Component {
   };
 
   render() {
+    const loadingPoint = (
+      <View key="1" style={styles.input}>
+        <View style={styles.inputinner}>
+          <GoogleAutoComplete
+            placeholder="Loading Point"
+            changed={(data, details) =>
+              this.onChangeHandler(
+                details.address_components[
+                  details.address_components.length - 2
+                ].long_name,
+                'loadingp'
+              )
+            }
+          />
+        </View>
+      </View>
+    );
+    const unloadingPoint = (
+      <View key="2" style={styles.input}>
+        <View style={styles.inputinner}>
+          <GoogleAutoComplete
+            placeholder="UnLoading Point"
+            changed={(data, details) =>
+              this.onChangeHandler(
+                details.address_components[
+                  details.address_components.length - 2
+                ].long_name,
+                'unloadingp'
+              )
+            }
+          />
+        </View>
+      </View>
+    );
+
+    let Points =
+      this.state.truckingDetails.check.value === 'one'
+        ? loadingPoint
+        : [loadingPoint, unloadingPoint];
     //mapping goods to the picker component
     let goodList = this.state.goodList.map((good, index) => {
       return <Picker.Item key={index} label={good} value={good} />;
@@ -121,7 +163,11 @@ class FetchData extends Component {
             priceLower={fetchedData.item.priceLower}
             priceUpper={fetchedData.item.priceUpper}
             placel={fetchedData.item.loadingp[0].long_name}
-            placeu={fetchedData.item.unloadingp[0].long_name}
+            placeu={
+              fetchedData.item.unloadingp !== ''
+                ? fetchedData.item.unloadingp[0].long_name
+                : ''
+            }
           />
         )}
         keyExtractor={(data, index) => index}
@@ -133,41 +179,22 @@ class FetchData extends Component {
         style={{ flex: 1, backgroundColor: '#00BFA5', padding: 5 }}
       >
         <View style={styles.container}>
-         
           <View style={styles.input}>
-            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
-              Pickup and Drop Points
-            </Text>
+            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Search By</Text>
             <View style={styles.inputinner}>
-              <GoogleAutoComplete
-                placeholder="Loading Point"
-                changed={(data, details) =>
-                  this.onChangeHandler(
-                    details.address_components[
-                      details.address_components.length - 2
-                    ].long_name,
-                    'loadingp'
-                  )
-                }
-              />
+              <Picker
+                style={{
+                  width: '100%'
+                }}
+                selectedValue={this.state.truckingDetails.check.value}
+                onValueChange={val => this.onChangeHandler(val, 'check')}
+              >
+                <Picker.Item label="Loading Point" value="one" />
+                <Picker.Item label="Loading and UnLoading Point" value="two" />
+              </Picker>
             </View>
           </View>
-          <View style={styles.input}>
-            <View style={styles.inputinner}>
-              <GoogleAutoComplete
-                placeholder="UnLoading Point"
-                changed={(data, details) =>
-                  this.onChangeHandler(
-                    details.address_components[
-                      details.address_components.length - 2
-                    ].long_name,
-                    'unloadingp'
-                  )
-                }
-              />
-            </View>
-          </View>
-
+          {Points}
           <View style={styles.input}>
             <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
               Type Of Goods
@@ -185,23 +212,6 @@ class FetchData extends Component {
             </View>
           </View>
 
-          <View style={styles.input}>
-            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
-              Number Of Specified Location for Search
-            </Text>
-            <View style={styles.inputinner}>
-              <Picker
-                style={{
-                  width: '100%'
-                }}
-                selectedValue={this.state.truckingDetails.check.value}
-                onValueChange={val => this.onChangeHandler(val, 'check')}
-              >
-                <Picker.Item label="one" value="one" />
-                <Picker.Item label="two" value="two" />
-              </Picker>
-            </View>
-          </View>
           <View style={{ marginBottom: 20, marginTop: 10 }}>
             <Button
               style={{ marginTop: 10 }}
