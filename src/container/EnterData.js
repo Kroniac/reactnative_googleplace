@@ -110,21 +110,33 @@ export default class EnterData extends Component {
   };
 
 
+
   componentWillMount() {
-    BackHandler.addEventListener('enter data page', this.backButtonHandler)
+
+    BackHandler.addEventListener('enter page', this.backButtonHandler)
   }
 
 
   componentWillUnmount() {
-    BackHandler.removeEventListener('enter data page', this.backButtonHandler)
+    BackHandler.removeEventListener('enter page', this.backButtonHandler)
   }
 
 
-  backButtonHandler = (event) => {
-    if (this.backButtonCounter < 1) {
-      ToastAndroid.show('Tap again to exit', ToastAndroid.SHORT)
+  backButtonHandler = () => {
 
+    if (this.state.backButtonCounter < 1) {
+      ToastAndroid.show('Tap again to exit', ToastAndroid.SHORT);
+      this.state.backButtonCounter += 1;
+      this.backButtonTimeout = setTimeout(() => {
+        ToastAndroid.show(`Hey I'm running`, ToastAndroid.SHORT);
+        this.state.backButtonCounter = 0;
+      }, 2000);
+    } else {
+      clearTimeout(this.backButtonTimeout);
+      ToastAndroid.show('App exited', ToastAndroid.SHORT);
+      BackHandler.exitApp();
     }
+    return true
   }
 
   baseState = this.state;
