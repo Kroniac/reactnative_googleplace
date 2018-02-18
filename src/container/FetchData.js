@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import ListItem from '../component/ListItem/ListItem';
 import axios from 'axios';
+import Icon from 'react-native-vector-icons/Ionicons';
 import { updateObject, checkValidity, onChange } from '../utility/utility';
 import GoogleAutoComplete from '../component/GoogleAutoComplete/GoogleAutoComplete.js';
 
@@ -106,6 +107,20 @@ class FetchData extends Component {
       .catch(err => alert('Error Occured' + err));
   };
 
+  clearTextField = fieldName => {
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        truckingdetails: {
+          ...prevState.truckingDetails,
+          loadingp: {
+            ...prevState.truckingDetails.loadingp,
+            value: ''
+          }
+        }
+      };
+    });
+  };
   render() {
     const loadingPoint = (
       <View key="1" style={styles.input}>
@@ -120,6 +135,12 @@ class FetchData extends Component {
                 'loadingp'
               )
             }
+          />
+          <Icon
+            name="ios-close-outline"
+            size={25}
+            backgroundColor="#3b5998"
+            onPress={() => this.clearTextField('loadingp')}
           />
         </View>
       </View>
@@ -215,8 +236,16 @@ class FetchData extends Component {
           <View style={{ marginBottom: 20, marginTop: 10 }}>
             <Button
               style={{ marginTop: 10 }}
+              color="#009688"
               title="Show Data"
-              disabled={this.state.truckingDetails.loadingp.value === ''}
+              disabled={
+                this.state.truckingDetails.check.value === 'one'
+                  ? !this.state.truckingDetails.loadingp.valid
+                  : !(
+                      this.state.truckingDetails.loadingp.valid &&
+                      this.state.truckingDetails.unloadingp.valid
+                    )
+              }
               onPress={this.onShowHandler}
             />
           </View>
