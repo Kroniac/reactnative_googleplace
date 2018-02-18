@@ -130,7 +130,7 @@ class FetchData extends Component {
     return (
       <ScrollView
         keyboardShouldPersistTaps="always"
-        style={{ flex: 1, backgroundColor: '#B3E5FC', padding: 5 }}
+        style={{ flex: 1, backgroundColor: '#00BFA5', padding: 5 }}
       >
         <View style={styles.container}>
          
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     width: '98%',
     alignItems: 'center',
     justifyContent: 'space-around',
-    backgroundColor: '#E1F5FE',
+    backgroundColor: '#E0F2F1',
     marginTop: 5,
     marginBottom: 5,
     padding: 10,

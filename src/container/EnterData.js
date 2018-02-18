@@ -8,7 +8,9 @@ import {
   View,
   TextInput,
   Button,
+  ToastAndroid,
   Picker,
+  BackHandler,
   KeyboardAvoidingView,
   ScrollView
 } from 'react-native';
@@ -103,8 +105,26 @@ export default class EnterData extends Component {
       'glass material',
       'coal'
     ],
-    truckFields: 0
+    truckFields: 0,
+    backButtonCounter: 0
   };
+
+
+  componentWillMount() {
+    BackHandler.addEventListener('enter data page', this.backButtonHandler)
+  }
+
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('enter data page', this.backButtonHandler)
+  }
+
+
+  backButtonHandler = (event) => {
+    if(this.backButtonCounter < 1){
+
+    }
+  }
 
   baseState = this.state;
   onChangeHandler = (val, key) => {
@@ -119,7 +139,7 @@ export default class EnterData extends Component {
   onSubmitHandler = () => {
     if (
       Number(this.state.truckingDetails.priceLower.value) <=
-        Number(this.state.truckingDetails.priceUpper.value) ||
+      Number(this.state.truckingDetails.priceUpper.value) ||
       this.state.truckingDetails.priceLower === '' ||
       this.state.truckingDetails.priceUpper === ''
     ) {
@@ -157,6 +177,10 @@ export default class EnterData extends Component {
             truckCapacity: {
               ...prevState.truckingDetails.truckCapacity,
               value: []
+            },
+            numberOfTrucks: {
+              ...prevState.truckingDetails.numberOfTrucks,
+              value: []
             }
           }
         };
@@ -172,6 +196,10 @@ export default class EnterData extends Component {
             truckCapacity: {
               ...prevState.truckingDetails.truckCapacity,
               value: prevState.truckingDetails.truckCapacity.value.fill('')
+            },
+            numberOfTrucks: {
+              ...prevState.truckingDetails.numberOfTrucks,
+              value: prevState.truckingDetails.numberOfTrucks.value.fill('')
             }
           }
         };
@@ -199,7 +227,7 @@ export default class EnterData extends Component {
               underlineColorAndroid="#FFCDD2"
               style={
                 this.state.truckingDetails.truckCapacity.valid ||
-                !this.state.truckingDetails.truckCapacity.touched
+                  !this.state.truckingDetails.truckCapacity.touched
                   ? styles.textinput
                   : styles.textinput2
               }
@@ -214,14 +242,16 @@ export default class EnterData extends Component {
               underlineColorAndroid="#FFCDD2"
               style={
                 this.state.truckingDetails.companyNumber.valid ||
-                !this.state.truckingDetails.companyNumber.touched
+                  !this.state.truckingDetails.companyNumber.touched
                   ? styles.textinput
                   : styles.textinput2
               }
               keyboardType="numeric"
               placeholder="No. Of Trucks"
-              onChangeText={val => this.onChangeHandler(val, 'companyNumber')}
-              value={this.state.truckingDetails.companyNumber.value}
+              onChangeText={val =>
+                this.onArrayTypeChangeHandler(val, 'numberOfTrucks', i)
+              }
+              value={this.state.truckingDetails.numberOfTrucks.value[i]}
             />
           </View>
         );
@@ -229,8 +259,8 @@ export default class EnterData extends Component {
     }
     return (
       <ScrollView
-        keyboardShouldPersistTaps="always"
-        style={{ flex: 1, backgroundColor: '#B3E5FC', padding: 5 }}
+        keyboardShouldPersistTaps='handled'
+        style={{ flex: 1, backgroundColor: '#00BFA5', padding: 5 }}
       >
         <View style={styles.container}>
           {/* <Text style={{ fontSize: 24, fontWeight: 'bold' }}>
@@ -261,9 +291,7 @@ export default class EnterData extends Component {
             </View>
           </View>
           <View style={styles.input}>
-            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
-              Pickup and Drop Points
-            </Text>
+
             <View style={styles.inputinner}>
               <GoogleAutoComplete
                 placeholders="Enter Loading Point"
@@ -284,15 +312,12 @@ export default class EnterData extends Component {
           </View>
 
           <View style={styles.input}>
-            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
-              Owner/Company Details
-            </Text>
             <View style={styles.inputinner}>
               <TextInput
                 underlineColorAndroid="#FFCDD2"
                 style={
                   this.state.truckingDetails.companyName.valid ||
-                  !this.state.truckingDetails.companyName.touched
+                    !this.state.truckingDetails.companyName.touched
                     ? styles.textinput
                     : styles.textinput2
                 }
@@ -305,7 +330,7 @@ export default class EnterData extends Component {
                 underlineColorAndroid="#ccc"
                 style={
                   this.state.truckingDetails.companyNumber.valid ||
-                  !this.state.truckingDetails.companyNumber.touched
+                    !this.state.truckingDetails.companyNumber.touched
                     ? styles.textinput
                     : styles.textinput2
                 }
@@ -317,7 +342,7 @@ export default class EnterData extends Component {
             </View>
           </View>
 
-          <View style={styles.input}>
+          {/* <View style={styles.input}>
             <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
               Trucks Owned By Owner
             </Text>
@@ -333,6 +358,7 @@ export default class EnterData extends Component {
               />
               <Button
                 title="Add Details"
+                color="#009688"
                 onPress={this.truckDetailsAddFieldsHandler}
               />
             </View>
@@ -365,7 +391,7 @@ export default class EnterData extends Component {
                 value={this.state.truckingDetails.companyNumber.value}
               />
             </View> */}
-          </View>
+          {/* </View>*/}
 
           <View style={styles.input}>
             <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
@@ -376,7 +402,7 @@ export default class EnterData extends Component {
                 underlineColorAndroid="#ccc"
                 style={
                   this.state.truckingDetails.priceLower.valid ||
-                  !this.state.truckingDetails.priceLower.touched
+                    !this.state.truckingDetails.priceLower.touched
                     ? styles.textinput
                     : styles.textinput2
                 }
@@ -389,7 +415,7 @@ export default class EnterData extends Component {
                 underlineColorAndroid="#ccc"
                 style={
                   this.state.truckingDetails.priceUpper.valid ||
-                  !this.state.truckingDetails.priceUpper.touched
+                    !this.state.truckingDetails.priceUpper.touched
                     ? styles.textinput
                     : styles.textinput2
                 }
@@ -421,6 +447,7 @@ export default class EnterData extends Component {
           <View style={{ width: '80%', marginTop: 20 }}>
             <Button
               title="Submit"
+              color="#009688"
               disabled={
                 !(
                   this.state.truckingDetails.companyName.valid &&
@@ -450,7 +477,7 @@ const styles = StyleSheet.create({
     width: '98%',
     alignItems: 'center',
     justifyContent: 'space-around',
-    backgroundColor: '#E1F5FE',
+    backgroundColor: '#E0F2F1',
     marginTop: 5,
     marginBottom: 5,
     padding: 10,

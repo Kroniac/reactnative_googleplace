@@ -4,7 +4,7 @@ import * as key from '../../config/Keys/Keys';
 const GoogleAutoComplete = props => (
   <GooglePlacesAutocomplete
     placeholder={props.placeholders}
-    minLength={2}
+    minLength={1}
     underlineColorAndroid="#FFCDD2"
     autoFocus={false}
     returnKeyType={'default'}

@@ -33,14 +33,14 @@ export const Tabs = TabNavigator(
 
     tabBarOptions: {
       activeTintColor: '#F44336',
-      activeBackgroundColor: '#4FC3F7',
+      activeBackgroundColor: '#4DB6AC',
       labelStyle: {
         fontSize: 12,
         fontWeight: 'bold'
       },
       style: {
         padding: 2,
-        backgroundColor: '#B3E5FC', 
+        backgroundColor: '#B2DFDB', 
       },
       swipeEnabled: true
     }
