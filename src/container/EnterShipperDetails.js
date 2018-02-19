@@ -221,7 +221,8 @@ export default class EnterData extends Component {
           [key]: {
             ...prevState.truckingDetails[key],
             value: '',
-            valid: false
+            valid: false,
+            touched: false
           }
         }
       };
@@ -294,6 +295,7 @@ export default class EnterData extends Component {
             <View style={styles.inputinner}>
               <TextInputUI
                 underlineColor="#FFCDD2"
+                clearAutoComplete={() => this.clearAutoComplete('companyName')}
                 field={this.state.truckingDetails.companyName}
                 keyboardType="default"
                 placeholder="Company Name"
@@ -301,6 +303,9 @@ export default class EnterData extends Component {
               />
               <TextInputUI
                 underlineColor="#ccc"
+                clearAutoComplete={() =>
+                  this.clearAutoComplete('companyNumber')
+                }
                 field={this.state.truckingDetails.companyNumber}
                 keyboardType="numeric"
                 placeholder="Mobile No."
@@ -309,8 +314,9 @@ export default class EnterData extends Component {
             </View>
             <View style={styles.inputinner}>
               <TextInputUI
-                style={{ width: '100%' }}
+                style={{ width: '90%' }}
                 underlineColor="#ccc"
+                clearAutoComplete={() => this.clearAutoComplete('address')}
                 field={this.state.truckingDetails.address}
                 keyboardType="default"
                 placeholder="Address"
@@ -326,6 +332,7 @@ export default class EnterData extends Component {
             <View style={styles.inputinner}>
               <TextInputUI
                 underlineColor="#ccc"
+                clearAutoComplete={() => this.clearAutoComplete('priceLower')}
                 field={this.state.truckingDetails.priceLower}
                 keyboardType="numeric"
                 placeholder="Lower Range"
@@ -333,6 +340,7 @@ export default class EnterData extends Component {
               />
               <TextInputUI
                 underlineColor="#ccc"
+                clearAutoComplete={() => this.clearAutoComplete('priceUpper')}
                 field={this.state.truckingDetails.priceUpper}
                 keyboardType="numeric"
                 placeholder="Upper Range"

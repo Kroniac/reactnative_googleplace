@@ -1,14 +1,14 @@
 import React from 'react';
 import { Text, Button } from 'react-native';
 import { TabNavigator, TabBarBottom, StackNavigator } from 'react-navigation';
-import EnterData from './container/EnterData';
-import FetchData from './container/FetchData';
+import EnterShipperDetails from './container/EnterShipperDetails';
+import FindShipper from './container/FindShipper';
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export const Tabs = TabNavigator(
   {
-    EnterData: {
-      screen: EnterData,
+    EnterShipperDetails: {
+      screen: EnterShipperDetails,
       navigationOptions: {
         tabBarlabel: 'Insert Details',
         tabBarIcon: ({ tintColor }) => (
@@ -16,8 +16,8 @@ export const Tabs = TabNavigator(
         )
       }
     },
-    FindTrucks: {
-      screen: FetchData,
+    FindShipper: {
+      screen: FindShipper,
       navigationOptions: {
         tabBarlabel: 'Get Details',
         tabBarIcon: ({ tintColor }) => (
@@ -40,7 +40,7 @@ export const Tabs = TabNavigator(
       },
       style: {
         padding: 2,
-        backgroundColor: '#B2DFDB', 
+        backgroundColor: '#B2DFDB'
       },
       swipeEnabled: true
     }
