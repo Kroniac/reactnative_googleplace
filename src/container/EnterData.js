@@ -35,6 +35,15 @@ export default class EnterData extends Component {
         touched: false,
         required: true
       },
+      address: {
+        value: '',
+        validation: {
+          required: false,
+          minLength: 4
+        },
+        valid: false,
+        touched: false
+      },
       priceLower: {
         value: '',
         validation: {
@@ -93,13 +102,53 @@ export default class EnterData extends Component {
     },
     isValid: false,
     goodList: [
-      'steel',
-      'paper',
-      'plastic',
-      'cars',
-      'boxes',
-      'glass material',
-      'coal'
+      'Mirchi',
+      'Chilli',
+      'Cow Feed',
+      'Fish Feed',
+      'Fish',
+      'Poultry Feed',
+      'Book',
+      'Cotton',
+      'DOC',
+      'Paper',
+      'Wood',
+      'Corrugated Boxes',
+      'Machinery',
+      'Metals',
+      'Turmeric',
+      'Spices',
+      'Rice',
+      'Construction Material',
+      'Steel',
+      'Cotton Oils',
+      'Non-woven Fabrics',
+      'News Print',
+      'Cotton Hulls',
+      'Cotton Bales',
+      'Eggs',
+      'Parcels',
+      'Waste Paper',
+      'Soap',
+      'Textiles',
+      'FMCG',
+      'Cotton Yarn',
+      'Engineering Parts',
+      'Automotive Lubricants',
+      'Plastic Household Items',
+      'Plastic Pipes',
+      'Metal Pipes/Tubes',
+      'Chemical',
+      'Jute',
+      'Garments',
+      'Wires',
+      'Mechanical Parts',
+      'Beverages',
+      'Pesticides',
+      'Edible Oil',
+      'Cement',
+      'Paper & Plastic Bags',
+      'Rice Bran'
     ],
     truckFields: 0,
     backButtonCounter: 0
@@ -180,7 +229,9 @@ export default class EnterData extends Component {
   };
 
   render() {
-    let goodList = this.state.goodList.map((good, index) => {
+    let sortedgoodList = this.state.goodList.slice();
+    sortedgoodList.sort();
+    let goodList = sortedgoodList.map((good, index) => {
       return <Picker.Item key={index} label={good} value={good} />;
     });
 
@@ -256,6 +307,15 @@ export default class EnterData extends Component {
                 onChangeText={val => this.onChangeHandler(val, 'companyNumber')}
               />
             </View>
+            <View style={styles.inputinner}>
+              <TextInputUI
+                underlineColor="#ccc"
+                field={this.state.truckingDetails.address}
+                keyboardType="default"
+                placeholder="Address"
+                onChangeText={val => this.onChangeHandler(val, 'address')}
+              />
+            </View>
           </View>
 
           <View style={styles.input}>
@@ -286,6 +346,7 @@ export default class EnterData extends Component {
             </Text>
             <View style={styles.inputinner}>
               <Picker
+                mode="dropdown"
                 style={{
                   width: '100%'
                 }}
@@ -297,7 +358,7 @@ export default class EnterData extends Component {
             </View>
           </View>
 
-          <View style={{ width: '80%', marginTop: 20 }}>
+          <View style={{ width: '80%', marginTop: 10, marginBottom: 10 }}>
             <Button
               title="Submit"
               color="#009688"
@@ -306,7 +367,9 @@ export default class EnterData extends Component {
                   this.state.truckingDetails.loadingp.valid &&
                   this.state.truckingDetails.companyName.valid &&
                   (this.state.truckingDetails.companyNumber.valid ||
-                    !this.state.truckingDetails.companyNumber.touched)
+                    !this.state.truckingDetails.companyNumber.touched) &&
+                  (this.state.truckingDetails.address.valid ||
+                    !this.state.truckingDetails.address.touched)
                 )
               }
               onPress={this.onSubmitHandler}
@@ -324,7 +387,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 10,
-    marginTop: 15
+    marginTop: 10
   },
 
   input: {

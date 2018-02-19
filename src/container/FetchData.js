@@ -46,13 +46,53 @@ class FetchData extends Component {
     fetchedData: '',
     isValid: false,
     goodList: [
-      'steel',
-      'paper',
-      'plastic',
-      'cars',
-      'boxes',
-      'glass material',
-      'coal'
+      'Mirchi',
+      'Chilli',
+      'Cow Feed',
+      'Fish Feed',
+      'Fish',
+      'Poultry Feed',
+      'Book',
+      'Cotton',
+      'DOC',
+      'Paper',
+      'Wood',
+      'Corrugated Boxes',
+      'Machinery',
+      'Metals',
+      'Turmeric',
+      'Spices',
+      'Rice',
+      'Construction Material',
+      'Steel',
+      'Cotton Oils',
+      'Non-woven Fabrics',
+      'News Print',
+      'Cotton Hulls',
+      'Cotton Bales',
+      'Eggs',
+      'Parcels',
+      'Waste Paper',
+      'Soap',
+      'Textiles',
+      'FMCG',
+      'Cotton Yarn',
+      'Engineering Parts',
+      'Automotive Lubricants',
+      'Plastic Household Items',
+      'Plastic Pipes',
+      'Metal Pipes/Tubes',
+      'Chemical',
+      'Jute',
+      'Garments',
+      'Wires',
+      'Mechanical Parts',
+      'Beverages',
+      'Pesticides',
+      'Edible Oil',
+      'Cement',
+      'Paper & Plastic Bags',
+      'Rice Bran'
     ]
   };
 
@@ -183,7 +223,10 @@ class FetchData extends Component {
         ? loadingPoint
         : [loadingPoint, unloadingPoint];
     //mapping goods to the picker component
-    let goodList = this.state.goodList.map((good, index) => {
+    let sortedgoodList = this.state.goodList.slice();
+    sortedgoodList.sort();
+
+    let goodList = sortedgoodList.map((good, index) => {
       return <Picker.Item key={index} label={good} value={good} />;
     });
 
@@ -237,6 +280,7 @@ class FetchData extends Component {
             </Text>
             <View style={styles.inputinner}>
               <Picker
+                mode="dropdown"
                 style={{
                   width: '100%'
                 }}
@@ -279,7 +323,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 10,
-    marginTop: 15
+    marginTop: 10
   },
 
   input: {
