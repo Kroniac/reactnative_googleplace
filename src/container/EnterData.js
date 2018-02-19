@@ -15,12 +15,7 @@ import {
   ScrollView
 } from 'react-native';
 
-import {
-  updateObject,
-  checkValidity,
-  onChange,
-  onArrayTypeChange
-} from '../utility/utility';
+import { updateObject, checkValidity, onChange } from '../utility/utility';
 import axios from 'axios';
 import TextInputUI from '../UI/TextInputUI/TextInputUI.js';
 import GoogleAutoComplete from '../component/GoogleAutoComplete/GoogleAutoComplete.js';
@@ -30,7 +25,6 @@ export default class EnterData extends Component {
     truckingDetails: {
       loadingp: {
         value: '',
-
         valid: false,
         touched: false,
         required: false
@@ -140,11 +134,6 @@ export default class EnterData extends Component {
     this.setState(onChange(val, key, this.state));
   };
 
-  onArrayTypeChangeHandler = (val, key, arrayIndex) => {
-    this.setState(onArrayTypeChange(val, key, arrayIndex, this.state));
-    console.log(this.state.truckingDetails[key].value);
-  };
-
   onSubmitHandler = () => {
     if (
       Number(this.state.truckingDetails.priceLower.value) <=
@@ -173,99 +162,11 @@ export default class EnterData extends Component {
     }
   };
 
-  truckDetailsAddFieldsHandler = () => {
-    console.log(this.state.truckFields);
-    if (this.state.truckFields === 0) {
-      console.log('hello');
-      this.state.truckingDetails.truckCapacity.value.length = 0;
-      this.setState(prevState => {
-        return {
-          ...prevState,
-          truckingDetails: {
-            ...prevState.truckingDetails,
-            truckCapacity: {
-              ...prevState.truckingDetails.truckCapacity,
-              value: []
-            },
-            numberOfTrucks: {
-              ...prevState.truckingDetails.numberOfTrucks,
-              value: []
-            }
-          }
-        };
-      });
-    }
-    if (this.state.truckFields > 0) {
-      this.state.truckingDetails.truckCapacity.value.length = this.state.truckFields;
-      this.setState(prevState => {
-        return {
-          ...prevState,
-          truckingDetails: {
-            ...prevState.truckingDetails,
-            truckCapacity: {
-              ...prevState.truckingDetails.truckCapacity,
-              value: prevState.truckingDetails.truckCapacity.value.fill('')
-            },
-            numberOfTrucks: {
-              ...prevState.truckingDetails.numberOfTrucks,
-              value: prevState.truckingDetails.numberOfTrucks.value.fill('')
-            }
-          }
-        };
-      });
-    }
-  };
-
   render() {
     let goodList = this.state.goodList.map((good, index) => {
       return <Picker.Item key={index} label={good} value={good} />;
     });
-    let truckDetailsFields = [];
 
-    if (this.state.truckingDetails.truckCapacity.value.length === 0)
-      truckDetailsFields = [];
-    else {
-      for (
-        let i = 0;
-        i < this.state.truckingDetails.truckCapacity.value.length;
-        i++
-      ) {
-        truckDetailsFields.push(
-          <View key={i} style={styles.inputinner}>
-            <TextInput
-              underlineColor="#FFCDD2"
-              style={
-                this.state.truckingDetails.truckCapacity.valid ||
-                !this.state.truckingDetails.truckCapacity.touched
-                  ? styles.textinput
-                  : styles.textinput2
-              }
-              keyboardType="default"
-              placeholder="Capacity(Ton)"
-              onChangeText={val =>
-                this.onArrayTypeChangeHandler(val, 'truckCapacity', i)
-              }
-              value={this.state.truckingDetails.truckCapacity.value[i]}
-            />
-            <TextInput
-              underlineColorAndroid="#FFCDD2"
-              style={
-                this.state.truckingDetails.companyNumber.valid ||
-                !this.state.truckingDetails.companyNumber.touched
-                  ? styles.textinput
-                  : styles.textinput2
-              }
-              keyboardType="numeric"
-              placeholder="No. Of Trucks"
-              onChangeText={val =>
-                this.onArrayTypeChangeHandler(val, 'numberOfTrucks', i)
-              }
-              value={this.state.truckingDetails.numberOfTrucks.value[i]}
-            />
-          </View>
-        );
-      }
-    }
     return (
       <ScrollView
         keyboardShouldPersistTaps="handled"
@@ -337,57 +238,6 @@ export default class EnterData extends Component {
               />
             </View>
           </View>
-
-          {/* <View style={styles.input}>
-            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
-              Trucks Owned By Owner
-            </Text>
-            <View style={styles.inputinner}>
-              <TextInput
-                underlineColorAndroid="#ccc"
-                keyboardType="numeric"
-                style={[styles.textinput, { width: '50%' }]}
-                placeholder="Types Of Trucks"
-                onChangeText={val =>
-                  this.setState({ truckFields: Number(val) })
-                }
-              />
-              <Button
-                title="Add Details"
-                color="#009688"
-                onPress={this.truckDetailsAddFieldsHandler}
-              />
-            </View>
-            {truckDetailsFields}
-            {/* <View style={styles.inputinner}>
-              <TextInput
-                underlineColorAndroid="#ccc"
-                style={
-                  this.state.truckingDetails.companyName.valid ||
-                  !this.state.truckingDetails.companyName.touched
-                    ? styles.textinput
-                    : styles.textinput2
-                }
-                keyboardType="default"
-                placeholder="Capacity(Ton)"
-                onChangeText={val => this.onChangeHandler(val, 'companyName')}
-                value={this.state.truckingDetails.companyName.value}
-              />
-              <TextInput
-                underlineColorAndroid="#ccc"
-                style={
-                  this.state.truckingDetails.companyNumber.valid ||
-                  !this.state.truckingDetails.companyNumber.touched
-                    ? styles.textinput
-                    : styles.textinput2
-                }
-                keyboardType="numeric"
-                placeholder="No. Of Trucks"
-                onChangeText={val => this.onChangeHandler(val, 'companyNumber')}
-                value={this.state.truckingDetails.companyNumber.value}
-              />
-            </View> */}
-          {/* </View>*/}
 
           <View style={styles.input}>
             <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
