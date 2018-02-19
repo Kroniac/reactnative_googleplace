@@ -19,7 +19,7 @@ import { updateObject, checkValidity, onChange } from '../utility/utility';
 import axios from 'axios';
 import TextInputUI from '../UI/TextInputUI/TextInputUI.js';
 import GoogleAutoComplete from '../component/GoogleAutoComplete/GoogleAutoComplete.js';
-
+import goodsList from '../config/GoodList/GoodList'
 export default class EnterData extends Component {
   state = {
     truckingDetails: {
@@ -53,7 +53,7 @@ export default class EnterData extends Component {
         valid: false,
         touched: false
       },
-      priceLower: {
+      priceLoading: {
         value: '',
         validation: {
           isNumeric: true
@@ -62,7 +62,7 @@ export default class EnterData extends Component {
         touched: false,
         required: true
       },
-      priceUpper: {
+      priceUnloading: {
         value: '',
         validation: {
           required: false,
@@ -71,6 +71,25 @@ export default class EnterData extends Component {
         valid: false,
         touched: false
       },
+      marketPrice: {
+        value: '',
+        validation: {
+          required: false,
+          isNumeric: true
+        },
+        valid: false,
+        touched: false
+      },
+      truckCount: {
+        value: '',
+        validation: {
+          required: false,
+          isNumeric: true
+        },
+        valid: false,
+        touched: false
+      },
+
       companyName: {
         value: '',
         validation: {
@@ -101,73 +120,12 @@ export default class EnterData extends Component {
         touched: false
       },
       goodType: {
-        value: 'steel',
+        value: goodsList[0],
         valid: true,
         required: true
-      },
-      truckCapacity: {
-        value: [],
-        validation: { required: false },
-        valid: false,
-        touched: false
-      },
-      numberOfTrucks: {
-        value: [],
-        validation: { required: false },
-        valid: false,
-        touched: false
       }
     },
     isValid: false,
-    goodList: [
-      'Mirchi',
-      'Chilli',
-      'Cow Feed',
-      'Fish Feed',
-      'Fish',
-      'Poultry Feed',
-      'Book',
-      'Cotton',
-      'DOC',
-      'Paper',
-      'Wood',
-      'Corrugated Boxes',
-      'Machinery',
-      'Metals',
-      'Turmeric',
-      'Spices',
-      'Rice',
-      'Construction Material',
-      'Steel',
-      'Cotton Oils',
-      'Non-woven Fabrics',
-      'News Print',
-      'Cotton Hulls',
-      'Cotton Bales',
-      'Eggs',
-      'Parcels',
-      'Waste Paper',
-      'Soap',
-      'Textiles',
-      'FMCG',
-      'Cotton Yarn',
-      'Engineering Parts',
-      'Automotive Lubricants',
-      'Plastic Household Items',
-      'Plastic Pipes',
-      'Metal Pipes/Tubes',
-      'Chemical',
-      'Jute',
-      'Garments',
-      'Wires',
-      'Mechanical Parts',
-      'Beverages',
-      'Pesticides',
-      'Edible Oil',
-      'Cement',
-      'Paper & Plastic Bags',
-      'Rice Bran'
-    ],
     truckFields: 0,
     backButtonCounter: 0
   };
@@ -241,9 +199,9 @@ export default class EnterData extends Component {
   };
 
   render() {
-    let sortedgoodList = this.state.goodList.slice();
-    sortedgoodList.sort();
-    let goodList = sortedgoodList.map((good, index) => {
+    // let sortedgoodList = this.state.goodList.slice();
+    // sortedgoodList.sort();
+    let goodList = goodsList.map((good, index) => {
       return <Picker.Item key={index} style={{ justifyContent: 'center', alignItems: 'center', textAlign: 'center' }} label={good} value={good} />;
     });
 
@@ -364,37 +322,37 @@ export default class EnterData extends Component {
             <View style={styles.inputinner}>
               <TextInputUI
                 underlineColor="#ccc"
-                clearAutoComplete={() => this.clearAutoComplete('priceLower')}
-                field={this.state.truckingDetails.priceLower}
+                clearAutoComplete={() => this.clearAutoComplete('priceLoading')}
+                field={this.state.truckingDetails.priceLoading}
                 keyboardType="numeric"
                 placeholder="Loading Price"
-                onChangeText={val => this.onChangeHandler(val, 'priceLower')}
+                onChangeText={val => this.onChangeHandler(val, 'priceLoading')}
               />
               <TextInputUI
                 underlineColor="#ccc"
-                clearAutoComplete={() => this.clearAutoComplete('priceUpper')}
-                field={this.state.truckingDetails.priceUpper}
+                clearAutoComplete={() => this.clearAutoComplete('priceUnloading')}
+                field={this.state.truckingDetails.priceUnloading}
                 keyboardType="numeric"
                 placeholder="Unloading Price"
-                onChangeText={val => this.onChangeHandler(val, 'priceUpper')}
+                onChangeText={val => this.onChangeHandler(val, 'priceUnloading')}
               />
             </View>
             <View style={styles.inputinner}>
               <TextInputUI
                 underlineColor="#ccc"
-                clearAutoComplete={() => this.clearAutoComplete('priceLower')}
-                field={this.state.truckingDetails.priceLower}
+                clearAutoComplete={() => this.clearAutoComplete('marketPrice')}
+                field={this.state.truckingDetails.marketPrice}
                 keyboardType="numeric"
                 placeholder="Market Price"
-                onChangeText={val => this.onChangeHandler(val, 'priceLower')}
+                onChangeText={val => this.onChangeHandler(val, 'marketPrice')}
               />
               <TextInputUI
                 underlineColor="#ccc"
-                clearAutoComplete={() => this.clearAutoComplete('priceUpper')}
-                field={this.state.truckingDetails.priceUpper}
+                clearAutoComplete={() => this.clearAutoComplete('truckCount')}
+                field={this.state.truckingDetails.truckCount}
                 keyboardType="numeric"
                 placeholder="Trucks Per Week"
-                onChangeText={val => this.onChangeHandler(val, 'priceUpper')}
+                onChangeText={val => this.onChangeHandler(val, 'truckCount')}
               />
             </View>
           </View>

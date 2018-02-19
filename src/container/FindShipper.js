@@ -14,6 +14,7 @@ import {
 } from 'react-native';
 import ListItem from '../component/ListItem/ListItem';
 import axios from 'axios';
+import goodsList from '../config/GoodList/GoodList'
 
 import { updateObject, checkValidity, onChange } from '../utility/utility';
 import GoogleAutoComplete from '../component/GoogleAutoComplete/GoogleAutoComplete.js';
@@ -36,7 +37,7 @@ class FindShipper extends Component {
         valid: false
       },
       goodType: {
-        value: 'steel',
+        value: goodsList[0],
         valid: true
       },
       check: {
@@ -45,56 +46,8 @@ class FindShipper extends Component {
     },
     fetchedData: '',
     isValid: false,
-    goodList: [
-      'Mirchi',
-      'Chilli',
-      'Cow Feed',
-      'Fish Feed',
-      'Fish',
-      'Poultry Feed',
-      'Book',
-      'Cotton',
-      'DOC',
-      'Paper',
-      'Wood',
-      'Corrugated Boxes',
-      'Machinery',
-      'Metals',
-      'Turmeric',
-      'Spices',
-      'Rice',
-      'Construction Material',
-      'Steel',
-      'Cotton Oils',
-      'Non-woven Fabrics',
-      'News Print',
-      'Cotton Hulls',
-      'Cotton Bales',
-      'Eggs',
-      'Parcels',
-      'Waste Paper',
-      'Soap',
-      'Textiles',
-      'FMCG',
-      'Cotton Yarn',
-      'Engineering Parts',
-      'Automotive Lubricants',
-      'Plastic Household Items',
-      'Plastic Pipes',
-      'Metal Pipes/Tubes',
-      'Chemical',
-      'Jute',
-      'Garments',
-      'Wires',
-      'Mechanical Parts',
-      'Beverages',
-      'Pesticides',
-      'Edible Oil',
-      'Cement',
-      'Paper & Plastic Bags',
-      'Rice Bran'
-    ]
   };
+
 
   //on change of text in an input box
   // call onChnage function which immutabily set the value state
@@ -124,6 +77,7 @@ class FindShipper extends Component {
             ...res.data[key]
           });
       } else {
+
         if (
           place2l === this.state.truckingDetails.loadingp.value &&
           res.data[key].goodType === this.state.truckingDetails.goodType.value
@@ -225,10 +179,9 @@ class FindShipper extends Component {
         ? loadingPoint
         : [loadingPoint, unloadingPoint];
     //mapping goods to the picker component
-    let sortedgoodList = this.state.goodList.slice();
-    sortedgoodList.sort();
 
-    let goodList = sortedgoodList.map((good, index) => {
+
+    let goodList = goodsList.map((good, index) => {
       return <Picker.Item key={index} label={good} value={good} />;
     });
 
@@ -241,14 +194,22 @@ class FindShipper extends Component {
           <ListItem
             companyName={fetchedData.item.companyName}
             contactNumber={fetchedData.item.companyNumber}
-            priceLower={fetchedData.item.priceLower}
-            priceUpper={fetchedData.item.priceUpper}
+            priceLoading={fetchedData.item.priceLoading}
+            priceUnloading={fetchedData.item.priceUnloading}
             placel={fetchedData.item.loadingp[0].long_name}
             placeu={
               fetchedData.item.unloadingp !== ''
                 ? fetchedData.item.unloadingp[0].long_name
                 : ''
             }
+            email={fetchedData.item.email}
+            mdName={fetchedData.item.mdName}
+            address={fetchedData.item.address}
+            marketPrice={fetchedData.item.marketPrice}
+            truckCount={fetchedData.item.truckCount}
+            goods={fetchedData.item.goodType}
+
+
           />
         )}
         keyExtractor={(data, index) => index}

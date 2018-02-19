@@ -1,22 +1,10 @@
 //returns list according the provided fetched data
 
 import React, { Component } from 'react';
-import { Animated, StyleSheet, Text, TouchableOpacity, Image, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, Image, View } from 'react-native';
 class listItem extends Component {
-  state = {
-    _animated: new Animated.Value(0)
-  }
-  componentDidMount() {
-    Animated.timing(this.state._animated, {
-      toValue: 1,
-      duration: 500,
-    }).start();
-    setTimeout(() => {
-      this.setState({
-        _animated: new Animated.Value(0)
-      })
-    }, 500);
-  }
+
+
   render() {
     let contactNumber = this.props.contactNumber ? (
       <View style={styles.listItem}>
@@ -25,37 +13,79 @@ class listItem extends Component {
       </View>
     ) : null;
     let loadingPrice =
-      this.props.priceLower ? (
+      this.props.priceLoading ? (
         <View style={styles.listItem}>
           <Text style={{ marginRight: 5 }}>Loading Price</Text>
-          <Text>
-            ₹{this.props.priceLower}
+          <Text style={{ flex: 1, textAlign: 'right' }}>
+            ₹{this.props.priceLoading}
+          </Text>
+        </View>
+      ) : null;
+    let truckCount =
+      this.props.truckCount ? (
+        <View style={styles.listItem}>
+          <Text style={{ marginRight: 5 }}>Truck Per Week: </Text>
+          <Text style={{ flex: 1, textAlign: 'right' }}>
+            {this.props.truckCount}
+          </Text>
+        </View>
+      ) : null;
+    let goods =
+      this.props.goods ? (
+        <View style={styles.listItem}>
+          <Text style={{ marginRight: 5 }}>Goods: </Text>
+          <Text style={{ flex: 1, textAlign: 'right' }}>
+            ₹{this.props.goods}
+          </Text>
+        </View>
+      ) : null;
+    let mdName =
+      this.props.mdName ? (
+        <View style={styles.listItem}>
+          <Text style={{ marginRight: 5 }}>MD/GM Name: </Text>
+          <Text style={{ flex: 1, textAlign: 'right' }}>
+            ₹{this.props.mdName}
+          </Text>
+        </View>
+      ) : null;
+    let email =
+      this.props.email ? (
+        <View style={styles.listItem}>
+          <Text style={{ marginRight: 5 }}>Email: </Text>
+          <Text style={{ flex: 1, textAlign: 'right' }}>
+            ₹{this.props.email}
+          </Text>
+        </View>
+      ) : null;
+    let address =
+      this.props.address ? (
+        <View style={styles.listItem}>
+          <Text style={{ marginRight: 5 }}>Address: </Text>
+          <Text style={{ flex: 1, textAlign: 'right' }}>
+            ₹{this.props.address}
+          </Text>
+        </View>
+      ) : null;
+    let marketPrice =
+      this.props.marketPrice ? (
+        <View style={styles.listItem}>
+          <Text style={{ marginRight: 5 }}>Market Price: </Text>
+          <Text style={{ flex: 1, textAlign: 'right' }}>
+            ₹{this.props.marketPrice}
           </Text>
         </View>
       ) : null;
     let unloadingPrice =
-      this.props.priceUpper ? (
+      this.props.priceUnloading ? (
         <View style={styles.listItem}>
           <Text style={{ marginRight: 5 }}>Unloading Price</Text>
-          <Text>
-            ₹{this.props.priceUpper}
+          <Text style={{ flex: 1, textAlign: 'right' }}>
+            ₹{this.props.priceUnloading}
           </Text>
         </View>
       ) : null;
     return (
-      <Animated.View style={[styles.listItems, { opacity: this._animated },
-      {
-        transform: [
-          { scale: this.state._animated },
-          {
-            rotate: this.state._animated.interpolate({
-              inputRange: [0, 1],
-              outputRange: ['35deg', '0deg'],
-              extrapolate: 'clamp',
-            })
-          }
-        ],
-      },]}>
+      <View style={styles.listItems}>
         <View style={styles.mainList}>
           <View style={[styles.listItem, { justifyContent: 'center' }]}>
             <Text>
@@ -63,14 +93,20 @@ class listItem extends Component {
             </Text>
           </View>
           <View style={styles.listItem}>
-            <Text style={{ marginRight: 5 }}  >Company Name</Text>
+            <Text style={{ marginRight: 5 }}  >Company Name: </Text>
             <Text style={{ flex: 1, textAlign: 'right' }} >{this.props.companyName}</Text>
           </View>
+          {mdName}
           {contactNumber}
+          {email}
+          {goods}
           {loadingPrice}
           {unloadingPrice}
+          {marketPrice}
+          {truckCount}
+          {address}
         </View>
-      </Animated.View>
+      </View>
     )
   }
 
