@@ -80,6 +80,15 @@ export default class EnterData extends Component {
         valid: false,
         touched: false
       },
+      mdName: {
+        value: '',
+        validation: {
+          required: true,
+          minLength: 3
+        },
+        valid: false,
+        touched: false
+      },
       companyNumber: {
         value: '',
         validation: {
@@ -312,6 +321,18 @@ export default class EnterData extends Component {
                 placeholder="Company Name"
                 onChangeText={val => this.onChangeHandler(val, 'companyName')}
               />
+
+              <TextInputUI
+                underlineColor="#ccc"
+                clearAutoComplete={() => this.clearAutoComplete('mdName')}
+                field={this.state.truckingDetails.mdName}
+                keyboardType="default"
+                placeholder="MD/GM Name"
+                onChangeText={val => this.onChangeHandler(val, 'mdName')}
+              />
+
+            </View>
+            <View style={styles.inputinner}>
               <TextInputUI
                 underlineColor="#ccc"
                 clearAutoComplete={() =>
@@ -322,11 +343,8 @@ export default class EnterData extends Component {
                 placeholder="Mobile No."
                 onChangeText={val => this.onChangeHandler(val, 'companyNumber')}
               />
-            </View>
-            <View style={styles.inputinner}>
               <TextInputUI
                 autoCapitalize="none"
-                style={{ width: '90%' }}
                 underlineColor="#ccc"
                 clearAutoComplete={() => this.clearAutoComplete('email')}
                 field={this.state.truckingDetails.email}
@@ -421,7 +439,11 @@ export default class EnterData extends Component {
                   (this.state.truckingDetails.companyNumber.valid ||
                     !this.state.truckingDetails.companyNumber.touched) &&
                   (this.state.truckingDetails.address.valid ||
-                    !this.state.truckingDetails.address.touched)
+                    !this.state.truckingDetails.address.touched) &&
+                  (this.state.truckingDetails.mdName.valid ||
+                    !this.state.truckingDetails.mdName.touched) &&
+                  (this.state.truckingDetails.email.valid ||
+                    !this.state.truckingDetails.email.touched)
                 )
               }
               onPress={this.onSubmitHandler}
