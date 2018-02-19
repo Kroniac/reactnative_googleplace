@@ -162,6 +162,23 @@ export default class EnterData extends Component {
     }
   };
 
+  clearAutoComplete = key => {
+    console.log('Hello');
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        truckingDetails: {
+          ...prevState.truckingDetails,
+          [key]: {
+            ...prevState.truckingDetails[key],
+            value: '',
+            valid: false
+          }
+        }
+      };
+    });
+  };
+
   render() {
     let goodList = this.state.goodList.map((good, index) => {
       return <Picker.Item key={index} label={good} value={good} />;
@@ -204,6 +221,7 @@ export default class EnterData extends Component {
             <View style={styles.inputinner}>
               <GoogleAutoComplete
                 placeholders="Enter Loading Point"
+                clearAutoComplete={() => this.clearAutoComplete('loadingp')}
                 changed={(data, details) =>
                   this.onChangeHandler(details.address_components, 'loadingp')
                 }
@@ -213,6 +231,7 @@ export default class EnterData extends Component {
             <View style={styles.inputinner}>
               <GoogleAutoComplete
                 placeholders="Enter UnLoading Point"
+                clearAutoComplete={() => this.clearAutoComplete('unloadingp')}
                 changed={(data, details) =>
                   this.onChangeHandler(details.address_components, 'unloadingp')
                 }

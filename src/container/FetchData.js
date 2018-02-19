@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import ListItem from '../component/ListItem/ListItem';
 import axios from 'axios';
-import Icon from 'react-native-vector-icons/Ionicons';
+
 import { updateObject, checkValidity, onChange } from '../utility/utility';
 import GoogleAutoComplete from '../component/GoogleAutoComplete/GoogleAutoComplete.js';
 
@@ -60,6 +60,7 @@ class FetchData extends Component {
   // call onChnage function which immutabily set the value state
   // in onChange function text is also verfied by calling checkValidity function
   onChangeHandler = (val, key) => {
+    console.log(val);
     this.setState(onChange(val, key, this.state));
   };
 
@@ -121,12 +122,31 @@ class FetchData extends Component {
       };
     });
   };
+
+  clearAutoComplete = key => {
+    console.log('Hello');
+    this.setState(prevState => {
+      return {
+        ...prevState,
+        truckingDetails: {
+          ...prevState.truckingDetails,
+          [key]: {
+            ...prevState.truckingDetails[key],
+            value: '',
+            valid: false
+          }
+        }
+      };
+    });
+  };
+
   render() {
     const loadingPoint = (
       <View key="1" style={styles.input}>
         <View style={styles.inputinner}>
           <GoogleAutoComplete
             placeholder="Loading Point"
+            clearAutoComplete={() => this.clearAutoComplete('loadingp')}
             changed={(data, details) =>
               this.onChangeHandler(
                 details.address_components[
@@ -136,12 +156,6 @@ class FetchData extends Component {
               )
             }
           />
-          <Icon
-            name="ios-close-outline"
-            size={25}
-            backgroundColor="#3b5998"
-            onPress={() => this.clearTextField('loadingp')}
-          />
         </View>
       </View>
     );
@@ -150,6 +164,7 @@ class FetchData extends Component {
         <View style={styles.inputinner}>
           <GoogleAutoComplete
             placeholder="UnLoading Point"
+            clearAutoComplete={() => this.clearAutoComplete('unloadingp')}
             changed={(data, details) =>
               this.onChangeHandler(
                 details.address_components[
