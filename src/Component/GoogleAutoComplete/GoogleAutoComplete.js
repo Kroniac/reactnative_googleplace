@@ -14,7 +14,7 @@ class GoogleAutoComplete extends Component {
           }}
           placeholder={this.props.placeholders}
           minLength={1}
-          underlineColorAndroid="#FFCDD2"
+          underlineColorAndroid={this.props.underlineColor}
           autoFocus={false}
           returnKeyType={'default'}
           fetchDetails={true}

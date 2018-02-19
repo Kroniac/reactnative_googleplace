@@ -44,6 +44,15 @@ export default class EnterData extends Component {
         valid: false,
         touched: false
       },
+      email: {
+        value: '',
+        validation: {
+          required: false,
+          isEmail: false
+        },
+        valid: false,
+        touched: false
+      },
       priceLower: {
         value: '',
         validation: {
@@ -186,7 +195,7 @@ export default class EnterData extends Component {
   onSubmitHandler = () => {
     if (
       Number(this.state.truckingDetails.priceLower.value) <=
-        Number(this.state.truckingDetails.priceUpper.value) ||
+      Number(this.state.truckingDetails.priceUpper.value) ||
       this.state.truckingDetails.priceLower === '' ||
       this.state.truckingDetails.priceUpper === ''
     ) {
@@ -233,7 +242,7 @@ export default class EnterData extends Component {
     let sortedgoodList = this.state.goodList.slice();
     sortedgoodList.sort();
     let goodList = sortedgoodList.map((good, index) => {
-      return <Picker.Item key={index} label={good} value={good} />;
+      return <Picker.Item key={index} style={{ justifyContent: 'center', alignItems: 'center', textAlign: 'center' }} label={good} value={good} />;
     });
 
     return (
@@ -250,11 +259,11 @@ export default class EnterData extends Component {
               style={[styles.inputinner, { justifyContent: 'space-between' }]}
             >
               <Text
-                style={{ fontSize: 16, fontWeight: 'bold', color: '#FFCDD2' }}
+                style={{ fontSize: 14, fontWeight: 'bold', color: '#FFCDD2' }}
               >
                 _______
               </Text>
-              <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#ccc' }}>
+              <Text style={{ fontSize: 14, fontWeight: 'bold', color: '#ccc' }}>
                 _______
               </Text>
             </View>
@@ -273,6 +282,7 @@ export default class EnterData extends Component {
             <View style={styles.inputinner}>
               <GoogleAutoComplete
                 placeholders="Enter Loading Point"
+                underlineColor="#FFCDD2"
                 clearAutoComplete={() => this.clearAutoComplete('loadingp')}
                 changed={(data, details) =>
                   this.onChangeHandler(details.address_components, 'loadingp')
@@ -283,6 +293,7 @@ export default class EnterData extends Component {
             <View style={styles.inputinner}>
               <GoogleAutoComplete
                 placeholders="Enter UnLoading Point"
+                underlineColor="#ccc"
                 clearAutoComplete={() => this.clearAutoComplete('unloadingp')}
                 changed={(data, details) =>
                   this.onChangeHandler(details.address_components, 'unloadingp')
@@ -316,26 +327,35 @@ export default class EnterData extends Component {
               <TextInputUI
                 style={{ width: '90%' }}
                 underlineColor="#ccc"
+                clearAutoComplete={() => this.clearAutoComplete('email')}
+                field={this.state.truckingDetails.email}
+                keyboardType="default"
+                placeholder="Email Address"
+                onChangeText={val => this.onChangeHandler(val, 'email')}
+              />
+            </View>
+            <View style={styles.inputinner}>
+              <TextInputUI
+                style={{ width: '90%' }}
+                underlineColor="#ccc"
                 clearAutoComplete={() => this.clearAutoComplete('address')}
                 field={this.state.truckingDetails.address}
                 keyboardType="default"
-                placeholder="Address"
+                placeholder="Company Address"
                 onChangeText={val => this.onChangeHandler(val, 'address')}
               />
             </View>
           </View>
 
           <View style={styles.input}>
-            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
-              Price Range In INR(₹)
-            </Text>
+
             <View style={styles.inputinner}>
               <TextInputUI
                 underlineColor="#ccc"
                 clearAutoComplete={() => this.clearAutoComplete('priceLower')}
                 field={this.state.truckingDetails.priceLower}
                 keyboardType="numeric"
-                placeholder="Lower Range"
+                placeholder="Loading Price"
                 onChangeText={val => this.onChangeHandler(val, 'priceLower')}
               />
               <TextInputUI
@@ -343,21 +363,43 @@ export default class EnterData extends Component {
                 clearAutoComplete={() => this.clearAutoComplete('priceUpper')}
                 field={this.state.truckingDetails.priceUpper}
                 keyboardType="numeric"
-                placeholder="Upper Range"
+                placeholder="Unloading Price"
+                onChangeText={val => this.onChangeHandler(val, 'priceUpper')}
+              />
+            </View>
+            <View style={styles.inputinner}>
+              <TextInputUI
+                underlineColor="#ccc"
+                clearAutoComplete={() => this.clearAutoComplete('priceLower')}
+                field={this.state.truckingDetails.priceLower}
+                keyboardType="numeric"
+                placeholder="Market Price"
+                onChangeText={val => this.onChangeHandler(val, 'priceLower')}
+              />
+              <TextInputUI
+                underlineColor="#ccc"
+                clearAutoComplete={() => this.clearAutoComplete('priceUpper')}
+                field={this.state.truckingDetails.priceUpper}
+                keyboardType="numeric"
+                placeholder="Trucks Per Week"
                 onChangeText={val => this.onChangeHandler(val, 'priceUpper')}
               />
             </View>
           </View>
 
-          <View style={styles.input}>
-            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
-              Type Of Goods
-            </Text>
+          <View style={[styles.input, { paddingTop: 3, paddingBottom: 3 }]}>
+
             <View style={styles.inputinner}>
+              <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
+                Goods:
+            </Text>
               <Picker
                 mode="dropdown"
                 style={{
-                  width: '100%'
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  width: '80%',
+
                 }}
                 selectedValue={this.state.truckingDetails.goodType.value}
                 onValueChange={val => this.onChangeHandler(val, 'goodType')}
@@ -395,8 +437,8 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 10,
-    marginTop: 10
+    marginBottom: 7,
+    marginTop: 7
   },
 
   input: {
@@ -404,9 +446,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-around',
     backgroundColor: '#E0F2F1',
-    marginTop: 5,
-    marginBottom: 5,
-    padding: 7,
+    marginTop: 3,
+    marginBottom: 3,
+    padding: 5,
     borderRadius: 7
   },
 

@@ -186,6 +186,7 @@ class FindShipper extends Component {
         <View style={styles.inputinner}>
           <GoogleAutoComplete
             placeholder="Loading Point"
+            underlineColor="#FFCDD2"
             clearAutoComplete={() => this.clearAutoComplete('loadingp')}
             changed={(data, details) =>
               this.onChangeHandler(
@@ -204,6 +205,7 @@ class FindShipper extends Component {
         <View style={styles.inputinner}>
           <GoogleAutoComplete
             placeholder="UnLoading Point"
+            underlineColor="#FFCDD2"
             clearAutoComplete={() => this.clearAutoComplete('unloadingp')}
             changed={(data, details) =>
               this.onChangeHandler(
@@ -258,31 +260,34 @@ class FindShipper extends Component {
         style={{ flex: 1, backgroundColor: '#00BFA5', padding: 5 }}
       >
         <View style={styles.container}>
-          <View style={styles.input}>
-            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>Search By</Text>
+          <View style={[styles.input, { paddingTop: 3, paddingBottom: 3 }]}>
+
             <View style={styles.inputinner}>
+              <Text style={{ fontSize: 16, fontWeight: 'bold' }}>  Search By:</Text>
               <Picker
+                mode="dropdown"
                 style={{
-                  width: '100%'
+                  width: '50%'
                 }}
                 selectedValue={this.state.truckingDetails.check.value}
                 onValueChange={val => this.onChangeHandler(val, 'check')}
               >
-                <Picker.Item label="Loading Point" value="one" />
-                <Picker.Item label="Loading and UnLoading Point" value="two" />
+                <Picker.Item label="LP" value="one" />
+                <Picker.Item label="LP and UnLP" value="two" />
               </Picker>
             </View>
           </View>
           {Points}
-          <View style={styles.input}>
-            <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
-              Type Of Goods
-            </Text>
+          <View style={[styles.input, { paddingTop: 3, paddingBottom: 3 }]}>
+
             <View style={styles.inputinner}>
+              <Text style={{ fontSize: 16, fontWeight: 'bold' }}>
+                Goods:
+            </Text>
               <Picker
                 mode="dropdown"
                 style={{
-                  width: '100%'
+                  width: '80%'
                 }}
                 selectedValue={this.state.truckingDetails.goodType.value}
                 onValueChange={val => this.onChangeHandler(val, 'goodType')}
@@ -301,9 +306,9 @@ class FindShipper extends Component {
                 this.state.truckingDetails.check.value === 'one'
                   ? !this.state.truckingDetails.loadingp.valid
                   : !(
-                      this.state.truckingDetails.loadingp.valid &&
-                      this.state.truckingDetails.unloadingp.valid
-                    )
+                    this.state.truckingDetails.loadingp.valid &&
+                    this.state.truckingDetails.unloadingp.valid
+                  )
               }
               onPress={this.onShowHandler}
             />
@@ -322,23 +327,23 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 10,
-    marginTop: 10
+    marginBottom: 7,
+    marginTop: 7
   },
 
   input: {
     width: '98%',
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     backgroundColor: '#E0F2F1',
-    marginTop: 5,
-    marginBottom: 5,
-    padding: 7,
+    marginTop: 3,
+    marginBottom: 3,
+    padding: 5,
     borderRadius: 7
   },
   inputinner: {
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     flexDirection: 'row',
     width: '100%'
   },
