@@ -7,8 +7,8 @@ const TextInputUI = props => (
     underlineColorAndroid={props.underlineColor}
     style={
       props.field.valid || !props.field.touched
-        ? styles.textinput
-        : styles.textinput2
+        ? [styles.textinput, props.style]
+        : [styles.textinput2, props.style]
     }
     placeholder={props.placeholder}
     keyboardType={props.keyboardType}

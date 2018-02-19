@@ -309,6 +309,7 @@ export default class EnterData extends Component {
             </View>
             <View style={styles.inputinner}>
               <TextInputUI
+                style={{ width: '100%' }}
                 underlineColor="#ccc"
                 field={this.state.truckingDetails.address}
                 keyboardType="default"
@@ -397,7 +398,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#E0F2F1',
     marginTop: 5,
     marginBottom: 5,
-    padding: 10,
+    padding: 7,
     borderRadius: 7
   },
 

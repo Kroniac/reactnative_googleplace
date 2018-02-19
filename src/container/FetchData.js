@@ -333,7 +333,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#E0F2F1',
     marginTop: 5,
     marginBottom: 5,
-    padding: 10,
+    padding: 7,
     borderRadius: 7
   },
   inputinner: {
