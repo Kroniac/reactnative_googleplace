@@ -48,7 +48,7 @@ export default class EnterData extends Component {
         value: '',
         validation: {
           required: false,
-          isEmail: false
+          isEmail: true
         },
         valid: false,
         touched: false
@@ -325,6 +325,7 @@ export default class EnterData extends Component {
             </View>
             <View style={styles.inputinner}>
               <TextInputUI
+                autoCapitalize="none"
                 style={{ width: '90%' }}
                 underlineColor="#ccc"
                 clearAutoComplete={() => this.clearAutoComplete('email')}
