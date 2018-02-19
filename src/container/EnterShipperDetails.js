@@ -202,12 +202,7 @@ export default class EnterData extends Component {
   };
 
   onSubmitHandler = () => {
-    if (
-      Number(this.state.truckingDetails.priceLower.value) <=
-      Number(this.state.truckingDetails.priceUpper.value) ||
-      this.state.truckingDetails.priceLower === '' ||
-      this.state.truckingDetails.priceUpper === ''
-    ) {
+    {
       this.setState({ isValid: false });
       let submitTruckingDetails = {};
       for (let key in this.state.truckingDetails) {
@@ -224,8 +219,6 @@ export default class EnterData extends Component {
           this.setState({ isValid: true });
         })
         .catch(err => alert('Error Occured' + err));
-    } else {
-      alert('Enter Valid Price Range');
     }
   };
 
