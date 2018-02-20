@@ -35,14 +35,14 @@ class listItem extends Component {
         <View style={styles.listItem}>
           <Text style={{ marginRight: 5 }}>Goods: </Text>
           <Text style={{ flex: 1, textAlign: 'right' }}>
-            ₹{this.props.goods}
+            {this.props.goods}
           </Text>
         </View>
       ) : null;
     let mdName =
       this.props.mdName ? (
         <View style={styles.listItem}>
-          <Text style={{ marginRight: 5 }}>MD/GM Name: </Text>
+          <Text style={{ marginRight: 5 }}>Owner Name: </Text>
           <Text style={{ flex: 1, textAlign: 'right' }}>
             ₹{this.props.mdName}
           </Text>
@@ -62,7 +62,16 @@ class listItem extends Component {
         <View style={styles.listItem}>
           <Text style={{ marginRight: 5 }}>Address: </Text>
           <Text style={{ flex: 1, textAlign: 'right' }}>
-            ₹{this.props.address}
+            {this.props.address}
+          </Text>
+        </View>
+      ) : null;
+    let notes =
+      this.props.notes ? (
+        <View style={styles.listItem}>
+          <Text style={{ marginRight: 5 }}>Notes: </Text>
+          <Text style={{ flex: 1, textAlign: 'right' }}>
+            {this.props.notes}
           </Text>
         </View>
       ) : null;
@@ -105,6 +114,7 @@ class listItem extends Component {
           {marketPrice}
           {truckCount}
           {address}
+          {notes}
         </View>
       </View>
     )

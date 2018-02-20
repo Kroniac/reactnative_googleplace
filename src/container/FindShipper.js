@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 import ListItem from '../component/ListItem/ListItem';
 import axios from 'axios';
-import goodsList from '../config/GoodList/GoodList'
+import goodsList from '../config/GoodList/GoodListFind'
 
 import { updateObject, checkValidity, onChange } from '../utility/utility';
 import GoogleAutoComplete from '../component/GoogleAutoComplete/GoogleAutoComplete.js';
@@ -71,7 +71,8 @@ class FindShipper extends Component {
         if (
           place2l === this.state.truckingDetails.loadingp.value &&
           place2u === this.state.truckingDetails.unloadingp.value &&
-          res.data[key].goodType === this.state.truckingDetails.goodType.value
+          (this.state.truckingDetails.goodType.value === 'All' ? true : res.data[key].goodType === this.state.truckingDetails.goodType.value)
+
         )
           fetchedData.push({
             ...res.data[key]
@@ -80,7 +81,7 @@ class FindShipper extends Component {
 
         if (
           place2l === this.state.truckingDetails.loadingp.value &&
-          res.data[key].goodType === this.state.truckingDetails.goodType.value
+          (this.state.truckingDetails.goodType.value === 'All' ? true : res.data[key].goodType === this.state.truckingDetails.goodType.value)
         )
           fetchedData.push({
             ...res.data[key]
@@ -139,8 +140,8 @@ class FindShipper extends Component {
       <View key="1" style={styles.input}>
         <View style={styles.inputinner}>
           <GoogleAutoComplete
-            placeholder="Loading Point"
-            underlineColor="#FFCDD2"
+            placeholders="Loading Point"
+            underlineColor="#EF9A9A"
             clearAutoComplete={() => this.clearAutoComplete('loadingp')}
             changed={(data, details) =>
               this.onChangeHandler(
@@ -158,8 +159,8 @@ class FindShipper extends Component {
       <View key="2" style={styles.input}>
         <View style={styles.inputinner}>
           <GoogleAutoComplete
-            placeholder="UnLoading Point"
-            underlineColor="#FFCDD2"
+            placeholders="UnLoading Point"
+            underlineColor="#EF9A9A"
             clearAutoComplete={() => this.clearAutoComplete('unloadingp')}
             changed={(data, details) =>
               this.onChangeHandler(
@@ -208,6 +209,7 @@ class FindShipper extends Component {
             marketPrice={fetchedData.item.marketPrice}
             truckCount={fetchedData.item.truckCount}
             goods={fetchedData.item.goodType}
+            notes={fetchedData.item.notes}
 
 
           />

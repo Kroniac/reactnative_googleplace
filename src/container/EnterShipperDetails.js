@@ -44,6 +44,14 @@ export default class EnterData extends Component {
         valid: false,
         touched: false
       },
+      notes: {
+        value: '',
+        validation: {
+          required: false,
+        },
+        valid: false,
+        touched: false
+      },
       email: {
         value: '',
         validation: {
@@ -219,7 +227,7 @@ export default class EnterData extends Component {
               style={[styles.inputinner, { justifyContent: 'space-between' }]}
             >
               <Text
-                style={{ fontSize: 14, fontWeight: 'bold', color: '#FFCDD2' }}
+                style={{ fontSize: 14, fontWeight: 'bold', color: '#EF9A9A' }}
               >
                 _______
               </Text>
@@ -242,7 +250,7 @@ export default class EnterData extends Component {
             <View style={styles.inputinner}>
               <GoogleAutoComplete
                 placeholders="Enter Loading Point"
-                underlineColor="#FFCDD2"
+                underlineColor="#EF9A9A"
                 clearAutoComplete={() => this.clearAutoComplete('loadingp')}
                 changed={(data, details) =>
                   this.onChangeHandler(details.address_components, 'loadingp')
@@ -265,7 +273,7 @@ export default class EnterData extends Component {
           <View style={styles.input}>
             <View style={styles.inputinner}>
               <TextInputUI
-                underlineColor="#FFCDD2"
+                underlineColor="#EF9A9A"
                 clearAutoComplete={() => this.clearAutoComplete('companyName')}
                 field={this.state.truckingDetails.companyName}
                 keyboardType="default"
@@ -278,7 +286,7 @@ export default class EnterData extends Component {
                 clearAutoComplete={() => this.clearAutoComplete('mdName')}
                 field={this.state.truckingDetails.mdName}
                 keyboardType="default"
-                placeholder="MD/GM Name"
+                placeholder="Owner Name"
                 onChangeText={val => this.onChangeHandler(val, 'mdName')}
               />
 
@@ -376,6 +384,20 @@ export default class EnterData extends Component {
               >
                 {goodList}
               </Picker>
+            </View>
+          </View>
+
+          <View style={styles.input}>
+            <View style={styles.inputinner}>
+              <TextInputUI
+                style={{ width: '80%' }}
+                underlineColor="#ccc"
+                clearAutoComplete={() => this.clearAutoComplete('notes')}
+                field={this.state.truckingDetails.notes}
+                keyboardType="default"
+                placeholder="Any Other Notes"
+                onChangeText={val => this.onChangeHandler(val, 'notes')}
+              />
             </View>
           </View>
 
